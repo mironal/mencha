@@ -1,0 +1,30 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "team-metadata": {
+      "$teamId": {
+        ".read": "(auth != null)",
+        ".write": "(auth != null)"
+      }
+    },
+    "team-mentals": {
+      "$teamId": {
+        ".read": "(auth != null)",
+        ".write": "(auth != null)"
+      }
+    },
+    "team-events": {
+      "$teamId": {
+        ".read": "(auth != null)",
+        ".write": "(auth != null)"
+      }
+    },
+    "users": {
+      "$userId": {
+        ".read": "(auth != null)",
+        ".write": "(auth != null)"
+      }
+    }
+  }
+}
