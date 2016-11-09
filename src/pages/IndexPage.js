@@ -202,7 +202,7 @@ function TeamForm(props) {
   const { user, team_id, onChange, onClickJoinTeam, showId, onClickTeamID } = props
 
   if (user && user.team_id) {
-    return <p onClick={onClickTeamID}>Team ID: {showId ? user.team_id : "*******"}</p>
+    return <p onClick={onClickTeamID}>Team ID: {showId ? user.team_id : "*******"}, User name {showId ? user.displayName : "*******"}</p>
   } else {
     return <div>
       <input name="team_id" type="text" value={team_id} onChange={onChange} placeholder="Enter Team ID" />
@@ -224,9 +224,13 @@ class IndexPage extends Component {
   }
 
   onClickSignIn() {
-    signIn().then( uc => {
-      return syncDisplayName(uc.user)
-    })
+    signIn()
+      .then( uc => {
+        return syncDisplayName(uc.user)
+      })
+      .then(displayName => {
+        console.log("displayName updated!", displayName)
+      })
   }
 
   onClickSignOut() {

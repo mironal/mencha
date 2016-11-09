@@ -1,17 +1,25 @@
 import firebase from "firebase"
 import moment from "moment"
 
+const rejectWithErrorMessage = msg => {
+  return Promise.reject(new Error(msg))
+}
+
 export const syncDisplayName = (authUser) => {
   const { uid, displayName } = authUser
 
-  if (!uid || !displayName) {
-    return Promise.reject(new Error("Invalid parameter"))
+  if (!uid) {
+    return rejectWithErrorMessage(`Invalid "uid"`)
+  }
+  if (!displayName) {
+    return rejectWithErrorMessage(`Invalid "displayName"`)
   }
 
   return firebase.database()
     .ref("users")
     .child(uid)
     .update({displayName})
+    .then(() => Promise.resolve(displayName))
 }
 
 export const addTeamEvent = (params) => {
@@ -23,8 +31,17 @@ export const addTeamEvent = (params) => {
     event
   } = params
 
-  if (!team_id || !uid || !name || !event) {
-    return Promise.reject(new Error("Invalid parameter"))
+  if (!team_id) {
+    return rejectWithErrorMessage(`Invalid "team_id"`)
+  }
+  if (!uid) {
+    return rejectWithErrorMessage(`Invalid "uid"`)
+  }
+  if (!name) {
+    return rejectWithErrorMessage(`Invalid "name"`)
+  }
+  if (!event) {
+    return rejectWithErrorMessage(`Invalid "event"`)
   }
 
   return firebase.database()
@@ -47,8 +64,17 @@ export const setMental = (params, date = new Date()) => {
     mental
   } = params
 
-  if (!team_id || !uid || !name || !event) {
-    return Promise.reject(new Error("Invalid parameter"))
+  if (!team_id) {
+    return rejectWithErrorMessage(`Invalid "team_id"`)
+  }
+  if (!uid) {
+    return rejectWithErrorMessage(`Invalid "uid"`)
+  }
+  if (!name) {
+    return rejectWithErrorMessage(`Invalid "name"`)
+  }
+  if (!event) {
+    return rejectWithErrorMessage(`Invalid "event"`)
   }
 
   const key = moment(date).format("YYYYMMDD")
@@ -66,6 +92,15 @@ export const setMental = (params, date = new Date()) => {
 }
 
 export const createTeam = (uid, team_name) => {
+
+  if (!uid) {
+    return rejectWithErrorMessage(`Invalid "uid"`)
+  }
+
+  if (!team_name) {
+    return rejectWithErrorMessage(`Invalid "team_name"`)
+  }
+
   const id = firebase.database()
     .ref("team-metadata")
     .push()
@@ -82,6 +117,13 @@ export const createTeam = (uid, team_name) => {
 }
 
 export const joinTeam = (uid, team_id) => {
+
+  if (!uid) {
+    return rejectWithErrorMessage(`Invalid "uid"`)
+  }
+  if (!team_id) {
+    return rejectWithErrorMessage(`Invalid "team_id"`)
+  }
 
   const param = {
     [`users/${uid}/team_id`]: team_id,
