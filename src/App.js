@@ -25,13 +25,12 @@ class App extends Component {
 
   render() {
     return <div className="App">
-      <div className="App-header">
-        <h2>めんちゃ</h2>
-      </div>
+      <header>
+        <h1>mencha</h1>
+      </header>
       {this.props.children}
     </div>
   }
 }
 
 export default App
-

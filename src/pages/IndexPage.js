@@ -162,7 +162,7 @@ function Form(props) {
       {options}
     </select>
     <input name="event" type="text" value={event} onChange={onChange}/>
-    <button onClick={onClickEvent}>イベント</button>
+    <button className="submit" onClick={onClickEvent}>イベント</button>
   </form>
 }
 
