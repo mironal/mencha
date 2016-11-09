@@ -162,7 +162,7 @@ function Form(props) {
       {options}
     </select>
     <input name="event" type="text" value={event} onChange={onChange}/>
-    <button type="button" onClick={onClickEvent}>イベント</button>
+    <button onClick={onClickEvent}>イベント</button>
   </form>
 }
 
@@ -193,7 +193,7 @@ TopPage.defaultProps = {
 function LoginPage(props) {
 
   return <div className="LoginPage">
-    <button type="button" onClick={props.onClick}>ログイン</button>
+    <button onClick={props.onClick}>ログイン</button>
   </div>
 }
 
@@ -206,7 +206,7 @@ function TeamForm(props) {
   } else {
     return <div>
       <input name="team_id" type="text" value={team_id} onChange={onChange} placeholder="Enter Team ID" />
-      <button type="button" onClick={onClickJoinTeam}>チームに加わる</button>
+      <button onClick={onClickJoinTeam}>チームに加わる</button>
     </div>
   }
 }
@@ -337,7 +337,7 @@ class IndexPage extends Component {
           onChange={this.onChange.bind(this)}
           onClickEvent={this.onClickEvent.bind(this)}
         />
-        <button type="button" onClick={this.onClickSignOut.bind(this)}>ログアウト</button>
+        <button onClick={this.onClickSignOut.bind(this)}>ログアウト</button>
       </div>
     } else {
       return <div className="IndexPage">
@@ -364,4 +364,3 @@ const mapFirebaseToProps = ownProps => {
 }
 
 export default firebaseConnect(mapFirebaseToProps)(IndexPage)
-
