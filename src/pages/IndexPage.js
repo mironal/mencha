@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import { signOut } from "../helpers/auth"
 import {
   addTeamEvent,
   setMental,
@@ -71,11 +70,6 @@ class IndexPage extends Component {
     super(props)
     this.state = {}
     this.mentals = presetMentals
-  }
-
-  onClickSignOut() {
-    signOut()
-      .then(() => this.props.router.push("/login"))
   }
 
   onClickEvent(e) {
@@ -175,7 +169,6 @@ class IndexPage extends Component {
         onChange={this.onChange.bind(this)}
         onClickEvent={this.onClickEvent.bind(this)}
       />
-      <button onClick={this.onClickSignOut.bind(this)}>ログアウト</button>
     </div>
   }
 }

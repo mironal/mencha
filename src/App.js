@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { initFirebaseIfNeeded } from "./helpers/auth"
+import Footer from "./components/Footer"
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class App extends Component {
         <h1>mencha</h1>
       </header>
       {this.props.children}
+      <Footer />
     </div>
   }
 }
