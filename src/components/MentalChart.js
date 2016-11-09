@@ -36,10 +36,13 @@ export default function MentalChart(props) {
     "#F78181"
   ]
 
-  const lines = _(d)
+  const users = _(d)
     .flatMap(d =>  _.keys(d) )
     .reject(k => k === "day")
     .uniq()
+    .value()
+
+  const lines = users
     .map((k, i) => <Line
       key={k}
       type="monotone"
@@ -47,7 +50,6 @@ export default function MentalChart(props) {
       connectNulls={true}
       stroke={colors[i/colors.length]}
       dot={false} />)
-    .value()
 
   const tickFormatter = (a) => {
     return presetMentals[a]
