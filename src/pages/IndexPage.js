@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
-import { signIn, signOut } from "../helpers/auth"
+import { signOut } from "../helpers/auth"
 import {
-  syncDisplayName,
   addTeamEvent,
   setMental,
   //createTeam,
@@ -48,13 +47,6 @@ TopPage.defaultProps = {
   event: ""
 }
 
-function LoginPage(props) {
-
-  return <div className="LoginPage">
-    <button onClick={props.onClick}>ログイン</button>
-  </div>
-}
-
 function TeamForm(props) {
 
   const { user, team_id, onChange, onClickJoinTeam, showId, onClickTeamID } = props
@@ -81,18 +73,9 @@ class IndexPage extends Component {
     this.mentals = presetMentals
   }
 
-  onClickSignIn() {
-    signIn()
-      .then( uc => {
-        return syncDisplayName(uc.user)
-      })
-      .then(displayName => {
-        console.log("displayName updated!", displayName)
-      })
-  }
-
   onClickSignOut() {
     signOut()
+      .then(() => this.props.router.push("/login"))
   }
 
   onClickEvent(e) {
@@ -167,41 +150,33 @@ class IndexPage extends Component {
   }
 
   render() {
-
-    const { authUser, mental, events, mentals, user } = this.props
+    const { mental, events, mentals, user } = this.props
     const { event, team_id, showId} = this.state
 
     const end = moment()
     const start = end.clone().add(-14, "d")
 
-    // 面倒なのでとりあえずこのページで切り替える... (´･‿･｀)
-    if (authUser) {
-      return <div className="IndexPage">
-        <TeamForm
-          onClickTeamID={this.toggleTeamId.bind(this)}
-          showId={showId}
-          user={user}
-          team_id={team_id}
-          onChange={this.onChange.bind(this)}
-          onClickJoinTeam={this.onClickJoinTeam.bind(this)} />
-        <TopPage
-          start={start}
-          end={end}
-          presetMentals={this.mentals}
-          mental={mental}
-          mentals={mentals}
-          event={event}
-          events={events}
-          onChange={this.onChange.bind(this)}
-          onClickEvent={this.onClickEvent.bind(this)}
-        />
-        <button onClick={this.onClickSignOut.bind(this)}>ログアウト</button>
-      </div>
-    } else {
-      return <div className="IndexPage">
-        <LoginPage onClick={this.onClickSignIn.bind(this)} />
-      </div>
-    }
+    return <div className="IndexPage">
+      <TeamForm
+        onClickTeamID={this.toggleTeamId.bind(this)}
+        showId={showId}
+        user={user}
+        team_id={team_id}
+        onChange={this.onChange.bind(this)}
+        onClickJoinTeam={this.onClickJoinTeam.bind(this)} />
+      <TopPage
+        start={start}
+        end={end}
+        presetMentals={this.mentals}
+        mental={mental}
+        mentals={mentals}
+        event={event}
+        events={events}
+        onChange={this.onChange.bind(this)}
+        onClickEvent={this.onClickEvent.bind(this)}
+      />
+      <button onClick={this.onClickSignOut.bind(this)}>ログアウト</button>
+    </div>
   }
 }
 
