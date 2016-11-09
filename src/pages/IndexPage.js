@@ -248,7 +248,7 @@ class IndexPage extends Component {
 
     addTeamEvent({
       team_id: user.team_id,
-      name: authUser.displayName,
+      name: user.displayName,
       uid: authUser.uid,
       event
     })
@@ -267,13 +267,13 @@ class IndexPage extends Component {
 
       const { authUser, user } = this.props
       const  mental = e.target.value
-      if (!authUser || !mental) {
+      if (!authUser || !user || !mental) {
         return
       }
 
       setMental({
         team_id: user.team_id,
-        name: authUser.displayName,
+        name: user.displayName,
         uid: authUser.uid,
         mental
       })
