@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from "recharts"
-
 import { signIn, signOut } from "../helpers/auth"
 import {
   syncDisplayName,
@@ -11,6 +9,10 @@ import {
   joinTeam
 } from "../helpers/database"
 
+import EventTable from "../components/EventTable"
+import MentalForm from "../components/MentalForm"
+import MentalChart from "../components/MentalChart"
+
 import { firebaseConnect, observe, observeAuth } from "../hocs/firebaseConnect"
 
 import moment from "moment"
@@ -18,160 +20,16 @@ import "moment-range"
 moment.locale("ja")
 
 import "../App.css"
+import { presetMentals } from "../Config.js"
 
 import _ from "lodash"
-
-// 1〜の値に対して記号を付ける
-const presetMentals = {
-  1: "😲",
-  2: "😫",
-  3: "😐",
-  4: "😀"
-}
-
-function EventTable(props) {
-
-  const { events, start, end } = props
-  if (!events) {
-    return null
-  }
-
-  const days = moment.range(start, end).toArray("days")
-
-  const groupedEvents = _(events).entries()
-    .map(e => Object.assign(e[1], {key: e[0]}, {dayStr: moment(e[1].created_at).format("MM/DD (dd)")}))
-    .groupBy("dayStr")
-    .value()
-
-  const transposedEvents = (() => {
-    const h = _.map(days, d => {
-      const dayStr = d.format("MM/DD (dd)")
-      return groupedEvents[dayStr] || []
-    })
-
-    return _.map(h, (a, i) => {
-      return _.map(h, b => {
-        return b[i]
-      })
-    })
-  })()
-
-  const head = _.map(days, d => <th key={`head_${d.valueOf()}`}>{d.format("MM/DD (dd)")}</th>)
-
-  const body = _.map(transposedEvents, (a, i) => {
-
-    const tds = _.map(a, (b, j) => {
-      if (b) {
-        return <td key={b.key}>{b.event}</td>
-      } else {
-        return <td key={`${i}-${j}`}></td>
-      }
-    })
-    return <tr key={i}>
-      {tds}
-    </tr>
-  })
-
-  return <table>
-    <thead>
-      <tr>
-        {head}
-      </tr>
-    </thead>
-    <tbody>
-      {body}
-    </tbody>
-  </table>
-}
-
-function MentalChart(props) {
-
-  const { mentals, start, end } = props
-
-  if (!mentals) {
-    return null
-  }
-
-  const days = moment.range(start, end).toArray("days")
-
-  const d = _.map(days, d => {
-    const mm = _(mentals[d.format("YYYYMMDD")]).map(m => {
-      return [[m.name], parseInt(m.mental, 10)]
-    }).fromPairs().value()
-
-    return Object.assign({day: d.format("MM/DD")}, mm)
-  })
-
-  const colors = [
-    "#F6CECE",
-    "#BEF781",
-    "#CEF6EC",
-    "#F78181",
-    "#ECF6CE",
-    "#819FF7"
-  ]
-
-  const lines = _(d)
-    .flatMap(d =>  _.keys(d) )
-    .reject(k => k === "day")
-    .uniq()
-    .map((k, i) => <Line
-      key={k}
-      type="monotone"
-      dataKey={k}
-      connectNulls={true}
-      stroke={colors[i%colors.length]}
-      dot={false} />)
-    .value()
-
-  const tickFormatter = (a) => {
-    return presetMentals[a]
-  }
-  const labelFormatter = (a) => {
-    return presetMentals[a]
-  }
-
-  return <div className="MentalChart">
-    <ResponsiveContainer minHeight={300} >
-      <LineChart data={d}
-        margin={{top: 50, right: 40, left: 0, bottom: 0}}>
-        <XAxis dataKey="day" />
-        <YAxis tickFormatter={tickFormatter} />
-        <CartesianGrid strokeDasharray="3 3"/>
-        <Tooltip formatter={labelFormatter} />
-        <Legend />
-        {lines}
-      </LineChart>
-    </ResponsiveContainer>
-  </div>
-}
-
-function Form(props) {
-
-  const { presetMentals, mental, onChange, onClickEvent, event } = props
-
-  const options = _(presetMentals).entries()
-    .reverse()
-    .map(e => {
-      return <option key={e[0]} value={e[0]}>{e[1]}</option>
-    }).value()
-  options.unshift(<option key="" value="" disabled={true}>選択してください</option>)
-
-  return <form className="MentalForm">
-    <select name="mental" value={mental} onChange={onChange}>
-      {options}
-    </select>
-    <input name="event" type="text" value={event} onChange={onChange}/>
-    <button className="submit" onClick={onClickEvent}>イベント</button>
-  </form>
-}
 
 function TopPage(props) {
 
   const {presetMentals, mentals, onChange, onClickEvent, mental, event, events, start, end } = props
 
   return <div className="TopPage">
-    <Form
+    <MentalForm
       presetMentals={presetMentals}
       mental={mental}
       onChange={onChange}
