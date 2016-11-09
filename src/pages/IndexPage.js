@@ -105,10 +105,10 @@ function MentalChart(props) {
   const colors = [
     "#F6CECE",
     "#BEF781",
-    "#ECF6CE",
-    "#819FF7",
     "#CEF6EC",
-    "#F78181"
+    "#F78181",
+    "#ECF6CE",
+    "#819FF7"
   ]
 
   const lines = _(d)
@@ -120,7 +120,7 @@ function MentalChart(props) {
       type="monotone"
       dataKey={k}
       connectNulls={true}
-      stroke={colors[i/colors.length]}
+      stroke={colors[i%colors.length]}
       dot={false} />)
     .value()
 
