@@ -214,10 +214,10 @@ const mapFirebaseToProps = ownProps => {
 
   return {
     authUser: observeAuth(),
-    user: observe("users/:uid", {uid: uid}, snap => snap.val()),
-    mental: observe("team-mentals/:team_id/:day/:uid", {uid: uid, day, team_id}, snap => snap.exists() && snap.val().mental),
-    mentals: observe("team-mentals/:team_id", {team_id: team_id}, snap => snap.val()),
-    events: observe("team-events/:team_id", {team_id: team_id}, snap => snap.val())
+    user: observe("users/:uid", {uid}, snap => snap.val()),
+    mental: observe("team-mentals/:team_id/:day/:uid", {uid, day, team_id}, snap => snap.exists() && snap.val().mental),
+    mentals: observe("team-mentals/:team_id", {team_id}, snap => snap.val()),
+    events: observe("team-events/:team_id", {team_id}, snap => snap.val())
   }
 }
 
