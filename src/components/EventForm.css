@@ -1,0 +1,16 @@
+.EventForm input[name="event"] {
+  height: 2em;
+  width: 20em;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.04);
+  outline: none;
+}
+
+.EventForm .submit {
+  height: 2em;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.2em 0.7em;
+}

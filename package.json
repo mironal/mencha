@@ -12,6 +12,7 @@
     "moment-range": "^2.2.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-helmet": "^3.2.2",
     "react-router": "^3.0.0",
     "recharts": "^0.17.1"
   },
