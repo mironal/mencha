@@ -27,13 +27,13 @@ export default function MentalChart(props) {
     return Object.assign({day: d.format("MM/DD")}, mm)
   })
 
+  // 色はルックアップテーブルじゃなくて
+  // いい感じに生成するようにしたい
   const colors = [
-    "#F6CECE",
-    "#BEF781",
-    "#ECF6CE",
-    "#819FF7",
-    "#CEF6EC",
-    "#F78181"
+    "#F74123",
+    "#023E7A",
+    "#1DB2ED",
+    "#3DBB42"
   ]
 
   const users = _(d)
@@ -48,7 +48,7 @@ export default function MentalChart(props) {
       type="monotone"
       dataKey={k}
       connectNulls={true}
-      stroke={colors[i/colors.length]}
+      stroke={colors[i%colors.length]}
       dot={false} />)
 
   const tickFormatter = (a) => {
