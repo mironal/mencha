@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Helmet from "react-helmet"
 
 import { initFirebaseIfNeeded } from "./helpers/auth"
 import Footer from "./components/Footer"
@@ -12,6 +13,12 @@ class App extends Component {
 
   render() {
     return <div className="App">
+      <Helmet
+          meta={[
+              {"name": "description", "content": "Online Emotions Seismogram"},
+              {"property": "og:type", "content": "webpage"}
+          ]}
+      />
       <header>
         <h1>mencha</h1>
       </header>

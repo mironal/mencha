@@ -1,4 +1,5 @@
 import React from "react"
+import Helmet from "react-helmet"
 
 import { signIn } from "../helpers/auth"
 import { syncDisplayName } from "../helpers/database"
@@ -15,6 +16,7 @@ function LoginPage(props) {
       })
   }
   return <div className="LoginPage">
+    <Helmet title="mencha - login" />
     <button onClick={onClickSignIn}>ログイン</button>
   </div>
 }

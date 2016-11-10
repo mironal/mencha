@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Helmet from "react-helmet"
 
 import {
   addTeamEvent,
@@ -158,6 +159,7 @@ class IndexPage extends Component {
     const start = end.clone().add(-14, "d")
 
     return <div className="IndexPage">
+      <Helmet title="mencha" />
       <TopPage
         start={start}
         end={end}
