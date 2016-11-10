@@ -25,10 +25,10 @@ export default function EventTable(props) {
   const days = moment.range(start, end).toArray("days")
 
   const head = days.map(d =>
-    <th key={d.valueOf()}>
+    <div className="column" key={d.valueOf()}>
       <p className="date">{d.format("MM/DD")}</p>
       <p className="dow">{d.format("dd")}</p>
-    </th>
+    </div>
   )
 
   const eventsWithKey = _.entries(events).map(e => ({key: e[0], ...e[1]}))
@@ -37,21 +37,17 @@ export default function EventTable(props) {
     // この日のイベント
     const eventsForDay = _.values(eventsWithKey).filter(e => moment(e.created_at).isSame(d, "day"))
 
-    return <td key={d.valueOf()}>
+    return <div className="column" key={d.valueOf()}>
       {eventsForDay.map(e => <EventItem event={e} key={e.key} />)}
-    </td>
+    </div>
   })
 
-  return <table className="EventTable">
-    <thead>
-      <tr>
-        {head}
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        {columns}
-      </tr>
-    </tbody>
-  </table>
+  return <div className="EventTable">
+    <div className="head">
+      {head}
+    </div>
+    <div className="body">
+      {columns}
+    </div>
+  </div>
 }

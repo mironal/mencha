@@ -1,0 +1,22 @@
+.Footer {
+  background: var(--blue-color);
+  overflow: hidden;
+  margin-top: 3em;
+  color: rgba(255, 255, 255, 0.58);
+  text-align: left;
+  font-size: 80%;
+  padding: 2em 0;
+}
+
+.Footer .left-menu {
+  list-style-type: none;
+  line-height: 2;
+}
+
+.Footer .left-menu a {
+  cursor: pointer;
+}
+
+.Footer .left-menu a:hover {
+  color: white;
+}

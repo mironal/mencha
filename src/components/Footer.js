@@ -2,6 +2,8 @@ import React from "react"
 import { signOut } from "../helpers/auth"
 import { firebaseConnect, observe, observeAuth } from "../hocs/firebaseConnect"
 
+import "./Footer.css"
+
 function Footer(props) {
   function onClickLogout() {
     signOut()
@@ -11,7 +13,7 @@ function Footer(props) {
   return <footer className="Footer">
     <ul className="left-menu">
       {props.user && <li>Team ID: {props.user.team_id}</li>}
-      {props.authUser && <li onClick={onClickLogout}>Logout</li>}
+      {props.authUser && <li><a onClick={onClickLogout}>Logout</a></li>}
     </ul>
   </footer>
 }

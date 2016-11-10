@@ -35,12 +35,13 @@ function TopPage(props) {
       presetMentals={presetMentals}
       value={mental} />
     <h2>Events</h2>
-    <div className="ChartContainer">
+    <div className="EventContainer">
       <EventTable events={events} start={start} end={end} />
-      <MentalChart mentals={mentals} start={start} end={end} />
     </div>
+    <MentalChart mentals={mentals} start={start} end={end} />
     <h2>What&#8217;s Happening today?</h2>
     <EventForm
+      onChange={onChange}
       onClickEvent={onClickEvent}
       event={event}
     />
