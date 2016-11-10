@@ -1,5 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 import Helmet from "react-helmet"
+import _ from "lodash"
+
+import moment from "moment"
+import "moment-range"
+moment.locale("ja")
 
 import {
   addTeamEvent,
@@ -14,15 +19,7 @@ import MentalChart from "../components/MentalChart"
 import MentalSelect from "../components/MentalSelect"
 
 import { firebaseConnect, observe, observeAuth } from "../hocs/firebaseConnect"
-
-import moment from "moment"
-import "moment-range"
-moment.locale("ja")
-
-import "../App.css"
 import { presetMentals } from "../Config.js"
-
-import _ from "lodash"
 
 function TopPage(props) {
 
