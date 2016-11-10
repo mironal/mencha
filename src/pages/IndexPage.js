@@ -7,9 +7,10 @@ import {
   joinTeam
 } from "../helpers/database"
 
+import EventForm from "../components/EventForm"
 import EventTable from "../components/EventTable"
-import MentalForm from "../components/MentalForm"
 import MentalChart from "../components/MentalChart"
+import MentalSelect from "../components/MentalSelect"
 
 import { firebaseConnect, observe, observeAuth } from "../hocs/firebaseConnect"
 
@@ -27,17 +28,22 @@ function TopPage(props) {
   const {presetMentals, mentals, onChange, onClickEvent, mental, event, events, start, end } = props
 
   return <div className="TopPage">
-    <MentalForm
-      presetMentals={presetMentals}
-      mental={mental}
+    <h2>Select your today&#8217;s emoticon</h2>
+    <MentalSelect
+      name="mental"
       onChange={onChange}
-      onClickEvent={onClickEvent}
-      event={event}
-    />
+      presetMentals={presetMentals}
+      value={mental} />
+    <h2>Events</h2>
     <div className="ChartContainer">
       <EventTable events={events} start={start} end={end} />
       <MentalChart mentals={mentals} start={start} end={end} />
     </div>
+    <h2>What&#8217;s Happening today?</h2>
+    <EventForm
+      onClickEvent={onClickEvent}
+      event={event}
+    />
   </div>
 }
 
@@ -151,13 +157,6 @@ class IndexPage extends Component {
     const start = end.clone().add(-14, "d")
 
     return <div className="IndexPage">
-      <TeamForm
-        onClickTeamID={this.toggleTeamId.bind(this)}
-        showId={showId}
-        user={user}
-        team_id={team_id}
-        onChange={this.onChange.bind(this)}
-        onClickJoinTeam={this.onClickJoinTeam.bind(this)} />
       <TopPage
         start={start}
         end={end}
@@ -169,6 +168,13 @@ class IndexPage extends Component {
         onChange={this.onChange.bind(this)}
         onClickEvent={this.onClickEvent.bind(this)}
       />
+      <TeamForm
+        onClickTeamID={this.toggleTeamId.bind(this)}
+        showId={showId}
+        user={user}
+        team_id={team_id}
+        onChange={this.onChange.bind(this)}
+        onClickJoinTeam={this.onClickJoinTeam.bind(this)} />
     </div>
   }
 }

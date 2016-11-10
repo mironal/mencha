@@ -1,76 +1,8 @@
-:root {
-  --text-color: #435262;
-  --background-color: #EBEBD3;
-  --red-color: #F74123;
-  --blue-color: #023E7A;
-  --yellow-color: #F4D35E;
-  --orange-color: #EE964B;
-}
-
-html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  font-family: "Open Sans", sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.5;
-  text-align: center;
-}
-
-h1 {
-  font-family: "Pacifico", cursive;
-  font-weight: normal;
-  color: var(--red-color);
-  font-size: 3em;
-}
-
-button {
-  border: none;
-  background: var(--red-color);
-  color: white;
-  padding: 0.5em 1em;
-  cursor: pointer;
-  transition: all .15s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.11);
-}
-
-input, button, textarea {
-  font-family: inherit;
-  font-size: inherit;
-}
-
-button:hover {
-  transform: translateY(-1px);
-  opacity: 0.9;
-}
-
 .App {
 }
 
 .MentalChart {
   width: 100%;
-  background-color: #f9f9f9;
-}
-
-.MentalForm input[name="event"] {
-  height: 2em;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 3px solid rgba(0, 0, 0, 0.12);
-  background: rgba(0, 0, 0, 0.04);
-  outline: none;
-}
-
-.MentalForm .submit {
-  height: 2em;
-  display: inline-block;
-  box-sizing: border-box;
-  padding: 0.2em 0.7em;
 }
 
 .Footer {

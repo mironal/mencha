@@ -4,7 +4,14 @@ import _ from "lodash"
 import "./MentalSelect.css"
 
 export default function MentalSelect(props) {
-  const { options, value, onChange, name } = props
+  const { presetMentals, value, onChange, name } = props
+
+  const options = _.entries(presetMentals)
+    .reverse()
+    .map(e => ({
+      text: e[1],
+      value: e[0]
+    }))
 
   function onClickItem(item) {
     onChange({
