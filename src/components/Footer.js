@@ -1,4 +1,5 @@
 import React from "react"
+import { withRouter } from "react-router"
 import { signOut } from "../helpers/auth"
 import { firebaseConnect, observe, observeAuth } from "../hocs/firebaseConnect"
 
@@ -27,4 +28,4 @@ const mapFirebaseToProps = ownProps => {
     user: observe("users/:uid", {uid}, snap => snap.val())
   }
 }
-export default firebaseConnect(mapFirebaseToProps)(Footer)
+export default withRouter(firebaseConnect(mapFirebaseToProps)(Footer))
