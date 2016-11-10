@@ -87,3 +87,10 @@ button:hover {
   list-style-type: none;
   line-height: 2;
 }
+
+.ChartContainer {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 50em;
+  margin: 0 auto;
+}

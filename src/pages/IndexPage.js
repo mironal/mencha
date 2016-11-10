@@ -34,7 +34,7 @@ function TopPage(props) {
       onClickEvent={onClickEvent}
       event={event}
     />
-    <div>
+    <div className="ChartContainer">
       <EventTable events={events} start={start} end={end} />
       <MentalChart mentals={mentals} start={start} end={end} />
     </div>
