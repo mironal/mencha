@@ -148,6 +148,17 @@ class IndexPage extends Component {
     this.setState({showId: !this.state.showId})
   }
 
+  componentDidUpdate(prevProps,  prevState) {
+
+    // イベント一覧テーブルを右端にスクロール
+    if (!prevProps.events && this.props.events) {
+      const item = _.last(document.getElementsByClassName("EventContainer"))
+      if (item) {
+        item.scrollLeft = item.clientWidth / 2
+      }
+    }
+  }
+
   render() {
     const { mental, events, mentals, user } = this.props
     const { event, team_id, showId} = this.state
