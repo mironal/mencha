@@ -22,6 +22,19 @@ export const syncDisplayName = (authUser) => {
     .then(() => Promise.resolve(displayName))
 }
 
+export const syncTeamName = (uid, team_id, team_name) => {
+
+  return firebase.database()
+    .ref(`users/${uid}/teams/`)
+    .update({[team_id]: team_name})
+}
+
+export const syncMemberName = (team_id, uid, user_name) => {
+  return firebase.database()
+    .ref(`team-metadata/${team_id}/members/`)
+    .update({[uid]: user_name})
+}
+
 export const addTeamEvent = (params) => {
 
   const {
@@ -114,6 +127,7 @@ export const createTeam = (uid, team_name) => {
       created_at: firebase.database.ServerValue.TIMESTAMP,
       type: "private"
     })
+    .then(() => Promise.resolve(id))
 }
 
 export const joinTeam = (uid, team_id) => {
@@ -127,8 +141,24 @@ export const joinTeam = (uid, team_id) => {
 
   const param = {
     [`users/${uid}/team_id`]: team_id,
+    [`users/${uid}/teams/${team_id}`]: true,
     [`team-metadata/${team_id}/members/${uid}`]: true
   }
   return firebase.database().ref().update(param)
+}
+
+export const selectTeam = (uid, team_id) => {
+
+  if (!uid) {
+    return rejectWithErrorMessage(`Invalid "uid"`)
+  }
+  if (!team_id) {
+    return rejectWithErrorMessage(`Invalid "team_id"`)
+  }
+
+  return firebase.database()
+    .ref("users")
+    .child(uid)
+    .update({ team_id })
 }
 

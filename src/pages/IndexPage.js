@@ -53,10 +53,10 @@ TopPage.defaultProps = {
 
 function TeamForm(props) {
 
-  const { user, team_id, onChange, onClickJoinTeam, showId, onClickTeamID } = props
+  const { user, team_id, onChange, onClickJoinTeam } = props
 
   if (user && user.team_id) {
-    return <p onClick={onClickTeamID}>Team ID: {showId ? user.team_id : "*******"}, User name {showId ? user.displayName : "*******"}</p>
+    return null
   } else {
     return <div>
       <input name="team_id" type="text" value={team_id} onChange={onChange} placeholder="Enter Team ID" />
@@ -144,10 +144,6 @@ class IndexPage extends Component {
     }
   }
 
-  toggleTeamId() {
-    this.setState({showId: !this.state.showId})
-  }
-
   componentDidUpdate(prevProps,  prevState) {
 
     // イベント一覧テーブルを右端にスクロール
@@ -180,7 +176,6 @@ class IndexPage extends Component {
         onClickEvent={this.onClickEvent.bind(this)}
       />
       <TeamForm
-        onClickTeamID={this.toggleTeamId.bind(this)}
         showId={showId}
         user={user}
         team_id={team_id}

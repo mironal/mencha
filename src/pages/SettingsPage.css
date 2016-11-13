@@ -1,0 +1,32 @@
+
+.SettingsForm ul li {
+  list-style: none;
+}
+
+.SettingsForm li {
+  margin-bottom: 1em;
+}
+
+.SettingsForm ul {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.SettingsForm input[type="text"] {
+  height: 2em;
+  width: 20em;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.04);
+  outline: none;
+}
+
+.SettingsForm button {
+  min-width: 10em;
+}
+
+.SettingsForm select {
+  font-family: "Open Sans", sans-serif;
+  border-radius: 1px;
+}

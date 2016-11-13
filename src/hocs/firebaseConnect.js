@@ -149,7 +149,10 @@ export const firebaseConnect = (mapFirebaseToProps) => (WrappedComponent) => {
         const query = e[1]
         query.on(val => {
           this.setState({ [key]: val })
-          this.updateQueries(this.props)
+          // 未来には setImmediate にしたい...
+          setTimeout(() => {
+            this.updateQueries(this.props)
+          }, 0)
         })
       })
     }

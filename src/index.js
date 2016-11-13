@@ -8,6 +8,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import IndexPage from "./pages/IndexPage"
 import LoginPage from "./pages/LoginPage"
+import SettingsPage from "./pages/SettingsPage"
 
 function requireAuth(nextState, replace) {
   if (!isLoggedIn()) {
@@ -20,7 +21,9 @@ ReactDOM.render(
     <Route path="/" component={App}>
       <IndexRoute component={IndexPage} onEnter={requireAuth} />
       <Route path="login" component={LoginPage} />
+      <Route path="settings" component={SettingsPage} />
     </Route>
   </Router>,
   document.getElementById('root')
 )
+
