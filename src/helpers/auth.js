@@ -25,11 +25,31 @@ export const isLoggedIn = () => {
   return firebase.apps.length > 0 && firebase.auth().currentUser
 }
 
-export const signIn = () => {
+export const signInGithub = () => {
   const provider = new firebase.auth.GithubAuthProvider()
+  return firebase.auth().signInWithPopup(provider)
+}
+
+export const signInTwitter = () => {
+  const provider = new firebase.auth.TwitterAuthProvider()
   return firebase.auth().signInWithPopup(provider)
 }
 
 export const signOut = () => {
   return firebase.auth().signOut()
 }
+
+export const linkGithub = () => {
+  const provider = new firebase.auth.GithubAuthProvider()
+  return firebase.auth().currentUser.linkWithPopup(provider)
+}
+
+export const linkTwitter = () => {
+  const provider = new firebase.auth.TwitterAuthProvider()
+  return firebase.auth().currentUser.linkWithPopup(provider)
+}
+
+export const unlink = providerId => {
+  return firebase.auth().currentUser.unlink(providerId)
+}
+

@@ -10,6 +10,12 @@ import {
   syncMemberName
 } from "../helpers/database"
 
+import {
+  linkGithub,
+  linkTwitter,
+  unlink
+} from "../helpers/auth"
+
 import _ from "lodash"
 
 import "./SettingsPage.css"
@@ -164,12 +170,48 @@ class SettingsPage extends Component {
 
   render() {
 
-    const { user } = this.props
+    const { user, authUser } = this.props
     const { teamName, teamId, selectedTeamId, disabled } = this.state
 
-    if (!user) {
+    if (!user || !authUser) {
       return null
     }
+
+    const onClickLink = linkFunc => () => {
+      this.setState({disabled: true})
+      linkFunc()
+        .then(() => this.setState({disabled: false}))
+        .catch(error => console.error(error))
+    }
+
+    const onClickUnlink = providerId => () => {
+      unlink(providerId)
+        .then(() => this.setState({disabled: false}))
+        .catch(error => console.error(error))
+    }
+
+    const mapProviderIdToLinkButton = {
+      "twitter.com": <button key="link-twitter" className="LoginButton" onClick={onClickLink(linkTwitter)}>Twitter でもログインできるようにする</button>,
+      "github.com": <button key="link-github" className="LoginButton" onClick={onClickLink(linkGithub)}>Github でもログインできるようにする</button>
+    }
+    const mapProviderIdToUnLinkButton = {
+      "twitter.com": <button key="unlink-twitter" className="LoginButton" onClick={onClickUnlink("twitter.com")}>Twitter との連携を解除する</button>,
+      "github.com": <button key="unlink-github" className="LoginButton" onClick={onClickUnlink("github.com")}>Github との連携を解除する</button>
+    }
+
+    const loginButtons = _.map(["github.com", "twitter.com"], providerId => {
+      // link or unlink
+      if (_.some(authUser.providerData, p => p.providerId === providerId)) {
+
+        // 全てのサービスから連携解除はできないようにする
+        if (authUser.providerData.length === 1) {
+          return null
+        }
+        return mapProviderIdToUnLinkButton[providerId]
+      } else {
+        return mapProviderIdToLinkButton[providerId]
+      }
+    })
 
     return (
       <div className="SettingsPage">
@@ -184,6 +226,7 @@ class SettingsPage extends Component {
           onClickCreateTeam={this.onClickCreateTeam.bind(this)}
           disabled={disabled}
         />
+        {loginButtons}
       </div>
     )
   }

@@ -48,6 +48,12 @@ button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.11);
 }
 
+button.LoginButton {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1em;
+}
+
 input, button, textarea {
   font-family: inherit;
   font-size: inherit;
