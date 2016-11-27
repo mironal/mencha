@@ -11,10 +11,6 @@ import { presetMentals } from "../Config.js"
 
 export default class MentalChart extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return _.isEqualWith(this.props, nextProps, (a, b) => {
       if (!a.start || !a.end || !a.mentals) {
