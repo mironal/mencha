@@ -14,7 +14,7 @@
   display: inline-block;
   vertical-align: top;
   overflow-y: auto;
-  max-height: 20em;
+  max-height: 18em;
 }
 
 .EventTable ::-webkit-scrollbar {

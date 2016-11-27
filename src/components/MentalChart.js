@@ -61,9 +61,9 @@ export default function MentalChart(props) {
   return <div className="MentalChart">
     <ResponsiveContainer minHeight={300} >
       <LineChart data={d}
-        margin={{top: 50, right: 40, left: 0, bottom: 0}}>
+        margin={{top: 40, right: 40, left: 0, bottom: 0}}>
         <XAxis dataKey="day" />
-        <YAxis tickFormatter={tickFormatter} />
+        <YAxis tickFormatter={tickFormatter} padding={{top:10, bottom: -55}}/>
         <CartesianGrid strokeDasharray="3 3"/>
         <Tooltip formatter={labelFormatter} />
         <Legend />
