@@ -13,6 +13,12 @@
   box-sizing: border-box;
   display: inline-block;
   vertical-align: top;
+  overflow-y: auto;
+  max-height: 20em;
+}
+
+.EventTable ::-webkit-scrollbar {
+  display: none;
 }
 
 .EventTable .head .column {
