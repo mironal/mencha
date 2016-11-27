@@ -23,7 +23,12 @@
     "users": {
       "$userId": {
         ".read": "(auth != null)",
-        ".write": "(auth != null)"
+        ".write": "(auth != null)",
+        "teams": {
+          "$teamId": {
+            ".validate": "root.child('team-metadata').child($teamId).exists()"
+          }
+        }
       }
     }
   }
