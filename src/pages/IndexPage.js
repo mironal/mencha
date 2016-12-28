@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Helmet from "react-helmet"
 import _ from "lodash"
+import Alert from "react-s-alert"
 
 import moment from "moment"
 import "moment-range"
@@ -102,10 +103,12 @@ class IndexPage extends Component {
       event
     })
       .then( () => {
+        console.log(event)
+        Alert.success(`Added "${event}"`)
         this.setState({event: ""})
-        console.log("success")
       })
       .catch(error => {
+        Alert.error(error.message)
         console.error(error)
       })
   }
@@ -193,9 +196,10 @@ class IndexPage extends Component {
       })
         .then( () => {
           this.setState({eventModalData: null})
-          console.log("success")
+          Alert.success(`Added "${event}"`)
         })
         .catch(error => {
+          Alert.error(error.message)
           console.error(error)
         })
     }
@@ -214,9 +218,12 @@ class IndexPage extends Component {
       removeTeamEvent(user.team_id, removeEvent.key)
         .then(() => {
           this.setState({removeEvent: null})
-          console.log("success")
+          Alert.success(`Removed "${removeEvent.event}"`)
         })
-        .catch(error => console.error(error))
+        .catch(error => {
+          Alert.error(error.message)
+          console.error(error)
+        })
     }
 
     return <div className="IndexPage">

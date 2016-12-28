@@ -15,9 +15,8 @@
     "react-helmet": "^3.2.3",
     "react-modal": "^1.6.1",
     "react-router": "^3.0.0",
-    "recharts": "^0.19.0",
-    "semantic-ui-css": "^2.2.4",
-    "semantic-ui-react": "^0.63.1"
+    "react-s-alert": "^1.2.2",
+    "recharts": "^0.19.0"
   },
   "scripts": {
     "start": "react-scripts start",

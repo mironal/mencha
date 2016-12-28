@@ -73,6 +73,9 @@ export const addTeamEvent = (params) => {
 }
 
 export const removeTeamEvent = (team_id, event_id) => {
+  if (!team_id || !event_id) {
+    return Promise.reject(new Error("Invalid argument"))
+  }
   return firebase.database()
     .ref("team-events")
     .child(team_id)
