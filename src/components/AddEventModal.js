@@ -20,7 +20,7 @@ function AddEventModal(props) {
   }
 
   return <Modal
-    className="AddEventModal"
+    className="Modal"
     isOpen={!!day}
     onRequestClose={onClose}
     contentLabel="AddEventModal"

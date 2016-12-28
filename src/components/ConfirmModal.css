@@ -1,0 +1,6 @@
+.Confirm {
+  min-width: 30em;
+}
+.Confirm .Control {
+  text-align: right;
+}

@@ -7,6 +7,7 @@ import "moment-range"
 
 import {
   addTeamEvent,
+  removeTeamEvent,
   setMental,
   //createTeam,
   joinTeam
@@ -21,10 +22,11 @@ import { firebaseConnect, observe, observeAuth } from "../hocs/firebaseConnect"
 import { presetMentals } from "../Config.js"
 
 import AddEventModal from "../components/AddEventModal"
+import ConfirmModal from "../components/ConfirmModal"
 
 function TopPage(props) {
 
-  const {presetMentals, mentals, onChange, onClickEvent, onClickAddEvent, mental, event, events, start, end } = props
+  const {presetMentals, mentals, onChange, onClickEvent, onClickAddEvent, onClickRemoveEvent, mental, event, events, start, end } = props
 
   return <div className="TopPage">
     <h2>Select your today&#8217;s emoticon</h2>
@@ -35,7 +37,13 @@ function TopPage(props) {
       value={mental} />
     <h2>Events</h2>
     <div className="EventContainer">
-      <EventTable events={events} start={start} end={end} onClick={onClickAddEvent} />
+      <EventTable
+        events={events}
+        start={start}
+        end={end}
+        onClickAddEvent={onClickAddEvent}
+        onClickRemoveEvent={onClickRemoveEvent}
+      />
     </div>
     <MentalChart mentals={mentals} start={start} end={end} />
     <h2>What&#8217;s Happening today?</h2>
@@ -192,6 +200,25 @@ class IndexPage extends Component {
         })
     }
 
+    const onClickRemoveEvent = event => this.setState({removeEvent: event})
+    const onCancelRemoveEvent = () => this.setState({removeEvent: null})
+
+    const onConfirmRemoveEvent = () => {
+
+      const { removeEvent } = this.state
+      const { user } = this.props
+      if (!user) {
+        return
+      }
+
+      removeTeamEvent(user.team_id, removeEvent.key)
+        .then(() => {
+          this.setState({removeEvent: null})
+          console.log("success")
+        })
+        .catch(error => console.error(error))
+    }
+
     return <div className="IndexPage">
       <AddEventModal
         {...eventModalData}
@@ -199,6 +226,15 @@ class IndexPage extends Component {
         onChange={onChangeEvent}
         onSubmit={onSubmitEvent}
       />
+      {this.state.removeEvent && <ConfirmModal
+        title="Are you sure?? 😲"
+        message={`"${this.state.removeEvent.event}" created by ${this.state.removeEvent.name}`}
+        okButton={"Delete event"}
+        onCancel={onCancelRemoveEvent}
+        onConfirm={onConfirmRemoveEvent}
+        open={!!this.state.removeEvent}
+      />
+      }
       <Helmet title="mencha" />
       <TopPage
         start={start}
@@ -211,6 +247,7 @@ class IndexPage extends Component {
         onChange={this.onChange.bind(this)}
         onClickEvent={this.onClickEvent.bind(this)}
         onClickAddEvent={onClickAddEvent}
+        onClickRemoveEvent={onClickRemoveEvent}
       />
       <TeamForm
         showId={showId}

@@ -37,6 +37,7 @@
 }
 
 .EventItem {
+  position: relative;
   background: var(--yellow-color);
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.05);
   padding: 0.25em 0.5em;
@@ -44,6 +45,20 @@
   font-size: 75%;
   text-align: left;
   word-break: break-all;
+}
+
+.EventItem .remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--red-color);
+  font-size: 140%;
+  line-height: initial;
+  display: none;
+}
+
+.EventItem:hover .remove {
+  display: initial;
 }
 
 .EventItem .content {

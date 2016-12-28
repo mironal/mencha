@@ -72,6 +72,14 @@ export const addTeamEvent = (params) => {
     })
 }
 
+export const removeTeamEvent = (team_id, event_id) => {
+  return firebase.database()
+    .ref("team-events")
+    .child(team_id)
+    .child(event_id)
+    .remove()
+}
+
 export const setMental = (params, date = new Date()) => {
 
   const {
