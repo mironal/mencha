@@ -61,6 +61,10 @@
   margin: 1em 0.25em 0 0.25em;
   text-align: center;
   word-break: break-all;
-  opacity: 0.4;
+  opacity: 0;
+}
+
+.AddEventItem:hover {
+  opacity: 0.6;
 }
 
