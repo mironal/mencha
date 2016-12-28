@@ -4,7 +4,6 @@ import _ from "lodash"
 
 import moment from "moment"
 import "moment-range"
-moment.locale("ja")
 
 import {
   addTeamEvent,
@@ -21,9 +20,11 @@ import MentalSelect from "../components/MentalSelect"
 import { firebaseConnect, observe, observeAuth } from "../hocs/firebaseConnect"
 import { presetMentals } from "../Config.js"
 
+import AddEventModal from "../components/AddEventModal"
+
 function TopPage(props) {
 
-  const {presetMentals, mentals, onChange, onClickEvent, mental, event, events, start, end } = props
+  const {presetMentals, mentals, onChange, onClickEvent, onClickAddEvent, mental, event, events, start, end } = props
 
   return <div className="TopPage">
     <h2>Select your today&#8217;s emoticon</h2>
@@ -34,7 +35,7 @@ function TopPage(props) {
       value={mental} />
     <h2>Events</h2>
     <div className="EventContainer">
-      <EventTable events={events} start={start} end={end} />
+      <EventTable events={events} start={start} end={end} onClick={onClickAddEvent} />
     </div>
     <MentalChart mentals={mentals} start={start} end={end} />
     <h2>What&#8217;s Happening today?</h2>
@@ -157,12 +158,47 @@ class IndexPage extends Component {
 
   render() {
     const { mental, events, mentals, user } = this.props
-    const { event, team_id, showId} = this.state
+    const { event, team_id, showId, eventModalData } = this.state
 
     const end = moment()
     const start = end.clone().add(-14, "d")
 
+    const onClickAddEvent = day => this.setState({eventModalData: { day }})
+    const onCloseEventModal = () => this.setState({eventModalData: null})
+    const onChangeEvent = e => {
+      const eventModalData = Object.assign({}, this.state.eventModalData, { event: e.target.value})
+      this.setState({ eventModalData })
+    }
+    const onSubmitEvent = (day, event) => {
+      const { authUser, user } = this.props
+
+      if (!authUser || !user || !day || !event) {
+        return
+      }
+
+      addTeamEvent({
+        team_id: user.team_id,
+        name: user.displayName,
+        uid: authUser.uid,
+        event,
+        created_at: day
+      })
+        .then( () => {
+          this.setState({eventModalData: null})
+          console.log("success")
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    }
+
     return <div className="IndexPage">
+      <AddEventModal
+        {...eventModalData}
+        onClose={onCloseEventModal}
+        onChange={onChangeEvent}
+        onSubmit={onSubmitEvent}
+      />
       <Helmet title="mencha" />
       <TopPage
         start={start}
@@ -174,6 +210,7 @@ class IndexPage extends Component {
         events={events}
         onChange={this.onChange.bind(this)}
         onClickEvent={this.onClickEvent.bind(this)}
+        onClickAddEvent={onClickAddEvent}
       />
       <TeamForm
         showId={showId}

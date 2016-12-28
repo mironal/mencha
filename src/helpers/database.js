@@ -37,11 +37,12 @@ export const syncMemberName = (team_id, uid, user_name) => {
 
 export const addTeamEvent = (params) => {
 
-  const {
+  let {
     team_id,
     uid,
     name,
-    event
+    event,
+    created_at
   } = params
 
   if (!team_id) {
@@ -56,6 +57,9 @@ export const addTeamEvent = (params) => {
   if (!event) {
     return rejectWithErrorMessage(`Invalid "event"`)
   }
+  if (!created_at) {
+    created_at = firebase.database.ServerValue.TIMESTAMP
+  }
 
   return firebase.database()
     .ref("team-events")
@@ -64,7 +68,7 @@ export const addTeamEvent = (params) => {
       uid,
       name,
       event,
-      created_at: firebase.database.ServerValue.TIMESTAMP
+      created_at
     })
 }
 

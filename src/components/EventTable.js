@@ -15,6 +15,17 @@ function EventItem(props) {
   </div>
 }
 
+function AddEventItem(props) {
+
+  const onClick = () => {
+    props.onClick(props.day)
+  }
+
+  return <div className="AddEventItem" onClick={onClick}>
+    <p className="content">+</p>
+  </div>
+}
+
 export default function EventTable(props) {
   const { events, start, end } = props
 
@@ -39,6 +50,10 @@ export default function EventTable(props) {
 
     return <div className="column" key={d.valueOf()}>
       {eventsForDay.map(e => <EventItem event={e} key={e.key} />)}
+      <AddEventItem
+        day={d.valueOf()}
+        onClick={props.onClick}
+      />
     </div>
   })
 

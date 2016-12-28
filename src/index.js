@@ -1,8 +1,9 @@
+import './index.css'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { isLoggedIn } from "./helpers/auth"
-import './index.css'
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 

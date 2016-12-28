@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import Helmet from "react-helmet"
-import "./App.css"
 
 import { initFirebaseIfNeeded } from "./helpers/auth"
 import Footer from "./components/Footer"
