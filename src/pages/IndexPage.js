@@ -87,7 +87,7 @@ class IndexPage extends Component {
     this.mentals = presetMentals
   }
 
-  onClickEvent(e) {
+  onClickEvent() {
 
     const { authUser, user } = this.props
     const { event } = this.state
@@ -103,7 +103,6 @@ class IndexPage extends Component {
       event
     })
       .then( () => {
-        console.log(event)
         Alert.success(`Added "${event}"`)
         this.setState({event: ""})
       })
