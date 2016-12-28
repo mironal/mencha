@@ -1,6 +1,9 @@
 import React, { Component } from "react"
 import Helmet from "react-helmet"
-import "./App.css"
+
+import Alert from "react-s-alert"
+import 'react-s-alert/dist/s-alert-default.css'
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css'
 
 import { initFirebaseIfNeeded } from "./helpers/auth"
 import Footer from "./components/Footer"
@@ -15,6 +18,7 @@ class App extends Component {
 
   render() {
     return <div className="App">
+      <Alert stack={{limit: 3}} timeout={2000}  position="top" effect="stackslide" />
       <Helmet
           meta={[
               {"name": "description", "content": "Online Emotions Seismogram"},

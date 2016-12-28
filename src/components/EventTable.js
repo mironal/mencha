@@ -1,4 +1,4 @@
-import React from "react"
+import React, { PropTypes } from "react"
 import _ from "lodash"
 
 import moment from "moment"
@@ -9,9 +9,31 @@ import "./EventTable.css"
 
 function EventItem(props) {
   const e = props.event
+
+  const remove = () => {
+    props.onClickRemove(e)
+  }
+
   return <div className="EventItem">
+    <span className="remove" onClick={remove}>☓</span>
     <p className="content">{e.event}</p>
     <p className="name">{e.name}</p>
+  </div>
+}
+
+EventItem.propTypes = {
+  event: PropTypes.object.isRequired,
+  onClickRemove: PropTypes.func.isRequired
+}
+
+function AddEventItem(props) {
+
+  const onClick = () => {
+    props.onClick(props.day)
+  }
+
+  return <div className="AddEventItem" onClick={onClick}>
+    <p className="content">+</p>
   </div>
 }
 
@@ -38,7 +60,11 @@ export default function EventTable(props) {
     const eventsForDay = _.values(eventsWithKey).filter(e => moment(e.created_at).isSame(d, "day"))
 
     return <div className="column" key={d.valueOf()}>
-      {eventsForDay.map(e => <EventItem event={e} key={e.key} />)}
+      {eventsForDay.map(e => <EventItem event={e} value={e.key} key={e.key} onClickRemove={props.onClickRemoveEvent} />)}
+      <AddEventItem
+        day={d.valueOf()}
+        onClick={props.onClickAddEvent}
+      />
     </div>
   })
 
